@@ -1,12 +1,14 @@
 import React from 'react'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faTrash } from '@fortawesome/free-solid-svg-icons'
 
 export default function CartItem({item,value}) {
     const{id,title,img,price,total,count} = item;
     const {increment,decrement,removeItem} = value;
     return (
-        <div className="row my-2 text-capitalize text-center">
+        <div className="row my-2 text-capitalize text-center d-flex align-items-center">
             <div className="col-10 mx-auto col-lg-2">
-                <img src={img} style={{width:'5rem',height:"5rem"}}
+                <img src={img} style={{width:'3rem'}}
                 className="img-fluid" alt="product" />
             </div>
             <div className="col-10 mx-auto col-lg-2">
@@ -37,11 +39,11 @@ export default function CartItem({item,value}) {
             {/* */}
             <div className="col-10 mx-auto col-lg-2">
                 <div className="cart-icon" onClick={()=>removeItem(id)}>
-                    <i className="fas fa-trash"></i>
+                    <FontAwesomeIcon icon={faTrash} style={{color: "black"}} />
                 </div>
             </div>
             <div className="col-10 mx-auto col-lg-2">
-                <strong>item total : $ {total}</strong>
+                <strong>$ {total},00</strong>
             </div>
         </div>
     )

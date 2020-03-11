@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import {Link} from 'react-router-dom';
-import logo from '../logo.svg'
+import logo from '../logoW1.png'
 import styled from 'styled-components'
 import {ButtonContainer} from './Button';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faShoppingCart } from '@fortawesome/free-solid-svg-icons'
 
-class Navbar extends Component {
+class Navbar extends Component { 
     render() {
         return (
             <div>
@@ -14,20 +16,15 @@ class Navbar extends Component {
                 Creative Commons (Attribution 3.0 Unported);
                 https://www.iconfinder.com/Makoto_msk */}
                 <Link to ='/'>
-                    <img src={logo} alt="store" className="navbar-brand"></img>
+                    <img src={logo} alt="store" className="navbar-brand w-25"></img>
                 </Link>
-                <ul className="navbar-nav align-items-center">
+                <ul className="navbar-nav align-items-center ml-auto">
                     <li className="nav ml-5">
                         <Link to="/" className="nav-link">products</Link>
                     </li>
                 </ul>
-                <Link to="/cart" className="ml-auto">
-                    <ButtonContainer>
-                        <span className="mr-2">
-                            <i className="fas fa-cart-plus"></i>
-                        </span>
-                        my cart
-                    </ButtonContainer>
+                <Link to="/cart">
+                        <FontAwesomeIcon icon={faShoppingCart} style={{color: "#FFF"}} /> 
                 </Link>
                 </NavWrapper>
             </div>
@@ -37,10 +34,15 @@ class Navbar extends Component {
 
 const NavWrapper = styled.nav`
 background:var(--mainBlue);
+position: absolute;
+background: transparent;
+border-bottom: 1px solid rgba(255, 255, 255, 0.3);;
+width: 100%;
+height: 69px;
 .nav-link {
     color:var(--mainWhite)!important;
-    font-size:1.3rem;
-    text-transform:capitalize;
+    font-size:16px;
+    font-weight: 500;
 }
 `
 

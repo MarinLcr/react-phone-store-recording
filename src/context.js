@@ -28,7 +28,7 @@ class ProductProvider extends Component {
         this.setState(()=>{
             return {products:tempProducts}
         })
-    }
+    } 
 
     getItem = (id) => {
         const product = this.state.products.find(item => item.id === id);

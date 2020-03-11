@@ -1,15 +1,18 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'; 
 import Product from './Product'
+import styled from 'styled-components';
 import Title from './Title'
 import {ProductConsumer} from '../context'
+import Slideshow from './Slideshow'
+import Footer from './Footer'
 
 class ProductList extends Component {
     render() {
         return (
-            <React.Fragment>
-                <div className="py-5">
+            <ProductWrapperList>
+                    <Slideshow />
                     <div className="container">
-                    <Title name="our" title="products" />
+                    <h2 className="title transition text-center text-uppercase">Best products</h2>
                     <div className="row">
                     <ProductConsumer>
                         {(value) => {
@@ -21,11 +24,18 @@ class ProductList extends Component {
                     </ProductConsumer>
                     </div>
                     </div>
-                </div>
-            </React.Fragment>
-           // <Product />
+                    <Footer></Footer>
+            </ProductWrapperList>
         );
     }
 }
+
+const ProductWrapperList = styled.div`
+.transition {
+    font-size: 18px;
+    line-height: 24px;
+    font-weight: 600;
+    margin: 5em 0 4em 0;
+`
 
 export default ProductList;
