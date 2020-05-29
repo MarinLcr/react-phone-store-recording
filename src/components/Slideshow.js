@@ -1,134 +1,127 @@
-import React, { Component } from 'react';
-import {ProductConsumer} from '../context'
-import styled from 'styled-components';
-import ProductSlide from './ProductSlide'
-import Title from './Title'
-import {storeProducts, detailProduct} from '../data';
+import React, { Component } from "react";
+import { ProductConsumer } from "../context";
+import styled from "styled-components";
+import ProductSlide from "./ProductSlide";
+import Title from "./Title";
+import { storeProducts, detailProduct } from "../data";
 
 class Slideshow extends Component {
-    constructor(props) {
-        super(props);
-       this.state = {      
-           products: [],   
-            slideshow: [],         
-            slideIndex: 0
-       };
-       this.currentIndex = 0; 
-       this.pause = false;
-       this.class = "use";
-       this.oterClass = "test_";
-     }
-        
-    componentDidMount() {
-        this.setProducts();
-      }
-    
-      componentDidUpdate() {
-        let that = this;     
-        console.log("voir : ", that) 
-        if(this.pause === true) {
-          //alert("yes")
-            clearInterval(this.timeout);
-            //this.timePause = setTimeout(function(){
-              //clearInterval(this.timePause);        
-            //}, 8000);
-            // this.pause = false;
-        }
-          else {
-        this.timeout = setTimeout(function () {
-          that.goTo('auto')
-        }, 3000);
-      }
-      }
+  constructor(props) {
+    super(props);
+    this.state = {
+      products: [],
+      slideshow: [],
+      slideIndex: 0,
+    };
+    this.currentIndex = 0;
+    this.pause = false;
+    this.class = "use";
+    this.oterClass = "test_";
+  }
 
-      componentWillUnmount() {
-        clearInterval(this.timeout);
-      }
+  componentDidMount() {
+    this.setProducts();
+  }
 
-          /* Remplie le state des produits et le slideshow */
-     setProducts() {
-        let tempProducts = [];
-        storeProducts.forEach(item =>{
-            const singleItem = {...item};
-            tempProducts = [...tempProducts, singleItem];
-        })
-        let tempProductsVoir = tempProducts.slice(0,3);
-        this.setState(()=>{
-            return {products:tempProductsVoir, slideshow: tempProductsVoir[0]}
-        })
+  componentDidUpdate() {
+    let that = this;
+    if (this.pause === true) {
+      clearInterval(this.timeout);
+    } else {
+      this.timeout = setTimeout(function () {
+        that.goTo("auto");
+      }, 3000);
     }
+  }
 
-    /* Appel le component ProductSlide une fois que le state est remplie */
-    sentProd() {
-        return (
-                <React.Fragment>
-                    <ProductSlide product={this.state.slideshow} className={this.class} />
-                </React.Fragment>
-            )
-        }
-    
-    sentIndic(array) {
-        const listIndicators = this.state.products.map((item, index) => 
+  componentWillUnmount() {
+    clearInterval(this.timeout);
+  }
+
+  /* Remplie le state des produits et le slideshow */
+  setProducts() {
+    let tempProducts = [];
+    storeProducts.forEach((item) => {
+      const singleItem = { ...item };
+      tempProducts = [...tempProducts, singleItem];
+    });
+    let tempProductsVoir = tempProducts.slice(0, 3);
+    this.setState(() => {
+      return { products: tempProductsVoir, slideshow: tempProductsVoir[0] };
+    });
+  }
+
+  /* Appel le component ProductSlide une fois que le state est remplie */
+  sentProd() {
+    return (
+      <React.Fragment>
+        <ProductSlide product={this.state.slideshow} className={this.class} />
+      </React.Fragment>
+    );
+  }
+
+  sentIndic(array) {
+    const listIndicators = this.state.products.map((item, index) => (
       <li
         key={index}
-        className={`list-inline-item ${this.currentIndex === index ? 'active' : ''}`}
+        className={`list-inline-item ${
+          this.currentIndex === index ? "active" : ""
+        }`}
         onClick={() => this.goTo(index)}
-      >0{index + 1}</li>
-    );
+      >
+        0{index + 1}
+      </li>
+    ));
     return (
-      <ul className="indicators list-inline text-center">
-        {listIndicators}
-      </ul>
+      <ul className="indicators list-inline text-center">{listIndicators}</ul>
     );
+  }
+
+  goTo = (direction) => {
+    if (direction !== "auto") {
+      this.setState({ pause: true });
+      this.class = "arret";
     }
-
-    goTo = (direction) => { 
-        if (direction !== 'auto') {
-          this.setState({pause : true});
-          this.class = 'arret';
-          console.log(" true ==== true batard");
-        }
-         if (this.state.products !== []) {
-        let index = 0;
-        switch(direction) {
-          case 'auto':
-            index = this.currentIndex + 1;
-            this.currentIndex = index >= this.state.products.length ? 0 : index;          
+    if (this.state.products !== []) {
+      let index = 0;
+      switch (direction) {
+        case "auto":
+          index = this.currentIndex + 1;
+          this.currentIndex = index >= this.state.products.length ? 0 : index;
           break;
-          default:
-            this.pause = true;
-            this.currentIndex = direction;
-            this.oterClass = "test_"+this.currentIndex
+        default:
+          this.pause = true;
+          this.currentIndex = direction;
+          this.oterClass = "test_" + this.currentIndex;
           break;
-        }
-         this.setState({
-           slideIndex: this.currentIndex,
-           slideshow: this.state.products[this.currentIndex]
-         });
-        } else {
-            console.log("ok")
-        }
-        }
+      }
+      this.setState({
+        slideIndex: this.currentIndex,
+        slideshow: this.state.products[this.currentIndex],
+      });
+    } else {
+      console.log("ok");
+    }
+  };
 
-    render() {
-        console.log("Mon state : ",this.state)
-        if (this.state.product !== []) {
-        return (
-            <React.Fragment>
-              <Content>
-              <div className={this.oterClass}>
-                <div className="w-100">
-                        {this.sentProd()}
-                    {this.sentIndic()}
-                </div>
+  render() {
+    if (this.state.product !== []) {
+      return (
+        <React.Fragment>
+          <Content>
+            <div className={this.oterClass}>
+              <div className="w-100">
+                {this.sentProd()}
+                {this.sentIndic()}
               </div>
-              </Content>
-            </React.Fragment>
-        )
-        } else {
-            console.log("ok")
-        }
-}
+            </div>
+          </Content>
+        </React.Fragment>
+      );
+    } else {
+      console.log("ok");
+    }
+  }
 }
 
 const Content = styled.div`

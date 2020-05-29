@@ -1,38 +1,42 @@
-import React, { Component } from 'react';
-import styled from 'styled-components';
-import {Link} from 'react-router-dom';
-import {ProductConsumer} from '../context';
-import PropTypes from 'prop-types'
+import React, { Component } from "react";
+import styled from "styled-components";
+import { Link } from "react-router-dom";
+import { ProductConsumer } from "../context";
+import PropTypes from "prop-types";
 
 class ProductSlide extends Component {
-    render() {
-        /* const {id, title, img, price, inCart} = this.props.product */
-        console.log("mes props: ", this.props)
-        return (
-            <div class="wall">
-                <div className="container">
-                <Product>
-                    <div className={`row flex-nowrap align-items-center ${this.props.className}`}> 
-                            <div className="col-1"></div>  
-                            <div className="info col-5">
-                                <h2 className="title_price">{this.props.product.price},00$</h2>
-                                <h1 className="title">{this.props.product.title}</h1>
-                                <p className="title_catch">{this.props.product.catch}</p>
-                                <button className="button">
-                                <Link to="/details" className="text-uppercase text-dark">
-                                    shop now      
-                                </Link>
-                                </button>
-                            </div>
-                            <div className="col-5 d-flex justify-content-center">
-                                <img src={this.props.product.img} alt="" className="w-75 img-product"/>
-                            </div>
-                    </div>
-                    </Product>
-                </div>
+  render() {
+    return (
+      <div className="wall">
+        <div className="container">
+          <Product>
+            <div
+              className={`row flex-nowrap align-items-center ${this.props.className}`}
+            >
+              <div className="col-1"></div>
+              <div className="info col-5">
+                <h2 className="title_price">{this.props.product.price},00$</h2>
+                <h1 className="title">{this.props.product.title}</h1>
+                <p className="title_catch">{this.props.product.catch}</p>
+                <button className="button">
+                  <Link to="/details" className="text-uppercase text-dark">
+                    shop now
+                  </Link>
+                </button>
+              </div>
+              <div className="col-5 d-flex justify-content-center">
+                <img
+                  src={this.props.product.img}
+                  alt=""
+                  className="w-75 img-product"
+                />
+              </div>
             </div>
-        );
-    }
+          </Product>
+        </div>
+      </div>
+    );
+  }
 }
 
 const Product = styled.div`
